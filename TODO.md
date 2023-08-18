@@ -1,0 +1,5 @@
+- CLI commands to create components and tests
+- Responsive 
+- Dark Mode
+- Show Nested Folders 
+- Categorize Songs by artists, genres and years
