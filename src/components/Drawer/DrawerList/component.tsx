@@ -1,22 +1,15 @@
-import {IconButton} from "@material-tailwind/react";
-import {getTracks} from "@/helpers/fileSystem.ts";
-import {getCover, getMetadata} from "@/helpers/track.ts";
-
+import {IconButton} from "@material-tailwind/react"
+import {getTracks} from "@/helpers/fileSystem.ts"
+import {mapImportedTracks} from "@/helpers/track.ts"
+import {useTracks} from "@/store/tracks.ts"
 
 export function DrawerList() {
+    const storeTracks = useTracks(state => state.add)
     async function insertTracks() {
             const tracks = await getTracks();
 
             if (tracks && tracks.length) {
-                const sampleFile = await tracks[0].file.getFile()
-                const tags = await getMetadata(sampleFile)
-                const cover = await getCover(tags)
-
-                if (cover) {
-                    const img = new Image()
-                    img.src = cover
-                    document.body.appendChild(img)
-                }
+                storeTracks(await mapImportedTracks(tracks))
             }
     }
 

@@ -1,6 +1,6 @@
 import * as mm from 'music-metadata-browser'
 import {Buffer} from 'buffer'
-import {Track} from "../types/types.ts";
+import {importFiles, storeFile, Track} from "../types/types.ts";
 globalThis.Buffer = Buffer
 
 export async function getMetadata(file: Track) {
@@ -23,4 +23,25 @@ export async function getCover(metadata: mm.IAudioMetadata) {
     }
 
     return null
+}
+
+export async function mapImportedTracks(tracks: importFiles) {
+    const dummy = []
+
+    for (let i = 0; i < tracks?.length; i++) {
+        const dummyObj: storeFile = {} as storeFile
+
+        const tempFile = await tracks[i].file.getFile()
+        const tags = await getMetadata(tempFile)
+        const cover = await getCover(tags)
+
+        dummyObj.file = tempFile
+        dummyObj.tags = tags
+        cover && (dummyObj.cover = cover)
+
+        dummy.push(dummyObj)
+
+    }
+
+    return dummy
 }
