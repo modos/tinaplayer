@@ -106,7 +106,7 @@ export function Player() {
 
     return(
         <>
-            <Card className="w-4/5 mx-auto absolute bottom-[5%] right-0 left-0">
+            <Card className="w-4/5 mx-auto absolute bottom-[2%] right-0 left-0">
                 <CardBody className="pb-3">
                     <div className="flex items-center gap-3 text-sm">
                         <span>00:00</span>

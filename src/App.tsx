@@ -10,10 +10,10 @@ function App() {
              <Drawer/>
          </div>
          <div className="w-full flex flex-col bg-base-100 h-screen">
-             <div className="w-full px-5 mt-5 py-2 overflow-hidden basis-3/5">
+             <div className="w-full px-5 py-2 overflow-hidden basis-4/5">
                  <TracksList/>
              </div>
-             <div className="basis-2/5">
+             <div className="basis-1/5">
                  <Player/>
              </div>
          </div>
