@@ -3,5 +3,5 @@
 - Dark Mode
 - Show Nested Folders 
 - Categorize Songs by artists, genres and years
-- Eslint no semi colon rule
 - git hook before commit
+- Queue Tracks

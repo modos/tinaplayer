@@ -1,6 +1,6 @@
-import {Drawer} from './components/Drawer'
-import {Player} from './components/Player'
-import {TracksList} from "@/components/Player/TracksList"
+import {Drawer} from './components/Drawer';
+import {Player} from './components/Player';
+import {TracksList} from "@/components/Player/TracksList";
 function App() {
   return (
     <>
@@ -19,7 +19,7 @@ function App() {
          </div>
      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

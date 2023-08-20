@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 import {storeFile} from "@/types/types.ts";
 
 type tracksStore = {
@@ -9,6 +9,6 @@ type tracksStore = {
 export const useTracks = create<tracksStore>()((set) => ({
     tracks: [],
     add: (values) => {
-        set({tracks: [...values]})
+        set({tracks: [...values]});
     },
-}))
+}));

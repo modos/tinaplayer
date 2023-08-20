@@ -7,5 +7,5 @@ export function Drawer() {
                     <DrawerList/>
                 </div>
         </>
-    )
+    );
 }
