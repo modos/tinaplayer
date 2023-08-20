@@ -1,7 +1,23 @@
 import {Card, CardBody, CardFooter, IconButton, Slider} from "@material-tailwind/react";
 import {ReactElement, useState} from "react";
+import {usePlayer} from "@/store/player.ts";
+import {storeFile} from "@/types/types.ts";
 
 export function Player() {
+
+    const currentPlayingTrack = usePlayer(state => state.currentTrack);
+    const audio = new Audio();
+    usePlayer.subscribe( (state) => updateTrack(state.currentTrack));
+
+    function updateTrack(newTrack: storeFile) {
+        audio.src = URL.createObjectURL(newTrack.file);
+         playAudio();
+    }
+
+     function playAudio() {
+         audio.play();
+    }
+
     const [iconStates, setIconStates] = useState({
         isPlaying: true,
         isMuted: false,
@@ -18,7 +34,7 @@ export function Player() {
                 <i className="fas fa-play text-lg" />
             </IconButton>
         );
-    }
+    };
 
     const pauseIcon = () => {
         return (
@@ -26,7 +42,7 @@ export function Player() {
                 <i className="fas fa-pause text-lg" />
             </IconButton>
         );
-    }
+    };
 
     const highVolumeIcon = () => {
         return (
@@ -34,7 +50,7 @@ export function Player() {
                 <i className="fas fa-volume-high" />
             </IconButton>
         );
-    }
+    };
 
     const lowVolumeIcon = () => {
         return (
@@ -42,7 +58,7 @@ export function Player() {
                 <i className="fas fa-volume-low" />
             </IconButton>
         );
-    }
+    };
 
     const muteVolumeIcon = () => {
         return (
@@ -50,7 +66,7 @@ export function Player() {
                 <i className="fas fa-volume-xmark" />
             </IconButton>
         );
-    }
+    };
 
     const likedIcon = () => {
             return (
@@ -58,7 +74,7 @@ export function Player() {
                     <i className="fas fa-heart" />
                 </IconButton>
             );
-    }
+    };
 
     const unlikedIcon = () => {
         return (
@@ -66,7 +82,7 @@ export function Player() {
                 <i className="fa-regular fa-heart" />
             </IconButton>
         );
-    }
+    };
 
     const shuffleIcon = () => {
         return (
@@ -74,7 +90,7 @@ export function Player() {
                 <i className="fas fa-shuffle" />
             </IconButton>
         );
-    }
+    };
 
     const unShuffleIcon = () => {
         return (
@@ -82,7 +98,7 @@ export function Player() {
                 <i className="fas fa-maximize" />
             </IconButton>
         );
-    }
+    };
 
     const toggleIcon = (iconName: string) => {
         setIconStates((prevState => ({
@@ -93,7 +109,7 @@ export function Player() {
 
     const onChangeVolume = (value: number) => {
         setVolume(value);
-    }
+    };
 
     const changeVolumeIcon = (value: number) : ReactElement => {
         if (value < 1 || iconStates.isMuted) {
@@ -102,7 +118,7 @@ export function Player() {
             return lowVolumeIcon();
         }
         return highVolumeIcon();
-    }
+    };
 
     return(
         <>
@@ -119,7 +135,9 @@ export function Player() {
                         <div>
                             <img
                                 className="w-[48px] h-[48px] rounded-lg object-cover object-center shadow-md shadow-blue-gray-900/50"
-                                src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                                src={
+                                currentPlayingTrack.cover ? currentPlayingTrack.cover : "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                            }
                                 alt="nature image"
                             />
                         </div>
