@@ -5,3 +5,4 @@
 - Categorize Songs by artists, genres and years
 - git hook before commit
 - Queue Tracks
+- Host SPA
