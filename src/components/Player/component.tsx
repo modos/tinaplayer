@@ -1,21 +1,35 @@
 import {Card, CardBody, CardFooter, IconButton, Slider} from "@material-tailwind/react";
-import {ReactElement, useState} from "react";
+import {ReactElement, useEffect, useRef, useState} from "react";
 import {usePlayer} from "@/store/player.ts";
 import {storeFile} from "@/types/types.ts";
 
 export function Player() {
 
     const currentPlayingTrack = usePlayer(state => state.currentTrack);
-    const audio = new Audio();
-    usePlayer.subscribe( (state) => updateTrack(state.currentTrack));
+    const audio = useRef(new Audio());
+    usePlayer.subscribe( (state) => {updateTrack(state.currentTrack);});
 
     function updateTrack(newTrack: storeFile) {
-        audio.src = URL.createObjectURL(newTrack.file);
-         playAudio();
+        audio.current.src = URL.createObjectURL(newTrack.file);
+        audio.current.volume = volume;
     }
 
      function playAudio() {
-         audio.play();
+            audio.current.play();
+    }
+
+    function pauseAudio() {
+            audio.current.pause();
+    }
+
+    function playIconClicked() {
+        playAudio();
+        toggleIcon("isPlaying");
+    }
+
+    function pauseIconClicked() {
+        pauseAudio();
+        toggleIcon("isPlaying");
     }
 
     const [iconStates, setIconStates] = useState({
@@ -25,12 +39,23 @@ export function Player() {
         isShuffled: false
     });
 
+    useEffect(() => {
+        if (iconStates.isMuted) {
+            setVolume(0);
+        }
+    }, [iconStates.isMuted]);
+
+
     const [timestamp, setTimestamp] = useState(50);
-    const [volume, setVolume] = useState(50);
+    const [volume, setVolume] = useState(0.5);
+
+    useEffect(() => {
+            audio.current.volume = volume;
+    }, [volume]);
 
     const playIcon = () => {
         return (
-            <IconButton onClick={() => toggleIcon("isPlaying")} variant="text" size="lg" color="deep-purple">
+            <IconButton onClick={() => playIconClicked()} variant="text" size="lg" color="deep-purple">
                 <i className="fas fa-play text-lg" />
             </IconButton>
         );
@@ -38,7 +63,7 @@ export function Player() {
 
     const pauseIcon = () => {
         return (
-            <IconButton onClick={() => toggleIcon("isPlaying")} variant="text" size="lg" color="deep-purple">
+            <IconButton onClick={() => pauseIconClicked()} variant="text" size="lg" color="deep-purple">
                 <i className="fas fa-pause text-lg" />
             </IconButton>
         );
@@ -101,6 +126,9 @@ export function Player() {
     };
 
     const toggleIcon = (iconName: string) => {
+        if (iconStates.isMuted) {
+            setVolume(1);
+        }
         setIconStates((prevState => ({
             ...prevState,
             [iconName]: !(prevState as never)[iconName]
@@ -112,9 +140,9 @@ export function Player() {
     };
 
     const changeVolumeIcon = (value: number) : ReactElement => {
-        if (value < 1 || iconStates.isMuted) {
+        if (value < 0.1) {
             return muteVolumeIcon();
-        }else if (value > 0 && value <= 50) {
+        }else if (value > 0.1 && value <= 0.5) {
             return lowVolumeIcon();
         }
         return highVolumeIcon();
@@ -153,7 +181,7 @@ export function Player() {
                             </IconButton>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Slider size="sm" value={volume.toString()} onChange={(e) => onChangeVolume(parseInt(e.target.value))} className="min-w-[100px]"/>
+                            <Slider size="sm" value={(volume * 100).toString()} onChange={(e) => onChangeVolume(parseInt(e.target.value) / 100)} className="min-w-[100px]"/>
                             {changeVolumeIcon(volume)}
                         </div>
                     </div>
