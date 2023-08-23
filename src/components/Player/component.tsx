@@ -1,13 +1,33 @@
 import {Card, CardBody, CardFooter, IconButton, Slider} from "@material-tailwind/react";
-import {ReactElement, useEffect, useRef, useState} from "react";
+import {ChangeEvent, ReactElement, useEffect, useRef, useState} from "react";
 import {usePlayer} from "@/store/player.ts";
 import {storeFile} from "@/types/types.ts";
 
 export function Player() {
 
+    const [iconStates, setIconStates] = useState({
+        isPlaying: true,
+        isMuted: false,
+        isLiked: false,
+        isShuffled: false
+    });
+
+    const [timestamp, setTimestamp] = useState(50);
+    const [volume, setVolume] = useState(0.5);
+
     const currentPlayingTrack = usePlayer(state => state.currentTrack);
     const audio = useRef(new Audio());
     usePlayer.subscribe( (state) => {updateTrack(state.currentTrack);});
+
+    useEffect(() => {
+        audio.current.volume = volume;
+    }, [volume]);
+
+    useEffect(() => {
+        if (iconStates.isMuted) {
+            setVolume(0);
+        }
+    }, [iconStates.isMuted]);
 
     function updateTrack(newTrack: storeFile) {
         audio.current.src = URL.createObjectURL(newTrack.file);
@@ -15,7 +35,7 @@ export function Player() {
     }
 
      function playAudio() {
-            audio.current.play();
+            audio.current.play().then();
     }
 
     function pauseAudio() {
@@ -32,26 +52,6 @@ export function Player() {
         toggleIcon("isPlaying");
     }
 
-    const [iconStates, setIconStates] = useState({
-        isPlaying: true,
-        isMuted: false,
-        isLiked: false,
-        isShuffled: false
-    });
-
-    useEffect(() => {
-        if (iconStates.isMuted) {
-            setVolume(0);
-        }
-    }, [iconStates.isMuted]);
-
-
-    const [timestamp, setTimestamp] = useState(50);
-    const [volume, setVolume] = useState(0.5);
-
-    useEffect(() => {
-            audio.current.volume = volume;
-    }, [volume]);
 
     const playIcon = () => {
         return (
@@ -148,14 +148,49 @@ export function Player() {
         return highVolumeIcon();
     };
 
+    function formatAudioTime(time: number): string {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+
+        const formattedMinutes = String(minutes).padStart(2, '0');
+        const formattedSeconds = String(seconds).padStart(2, '0');
+
+        return `${formattedMinutes}:${formattedSeconds}`;
+    }
+
+    function audioTimestamp(): string {
+        return formatAudioTime(audio.current.currentTime);
+    }
+
+    function audioDuration(): string {
+        return audio.current.duration > 0 ? formatAudioTime(audio.current.duration) : '00:00';
+    }
+
+    useEffect(() => {
+        const updateTime = () => {
+            audio.current.currentTime > 0 && setTimestamp(audio.current.currentTime / audio.current.duration * 100);
+        };
+
+            audio.current.addEventListener('timeupdate', updateTime);
+
+        return () => {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            audio.current.removeEventListener('timeupdate', updateTime);
+        };
+    }, []);
+
+    function updateAudioCurrentTime(e: ChangeEvent<HTMLInputElement>) {
+        Math.abs(parseInt(e.target.value) - timestamp) >= 1 &&  (audio.current.currentTime = parseInt(e.target.value) / 100 * audio.current.duration);
+    }
+
     return(
         <>
             <Card className="w-4/5 mx-auto absolute bottom-[2%] right-0 left-0">
                 <CardBody className="pb-3">
                     <div className="flex items-center gap-3 text-sm">
-                        <span>00:00</span>
-                        <Slider size="sm" value={timestamp} onChange={(e) => setTimestamp(e.target.value as never)}/>
-                        <span>00:00</span>
+                        <span>{audioTimestamp()}</span>
+                            <Slider size="sm" value={timestamp}  onChange={updateAudioCurrentTime}/>
+                        <span>{audioDuration()}</span>
                     </div>
                 </CardBody>
                 <CardFooter className="pt-0 pb-2">
