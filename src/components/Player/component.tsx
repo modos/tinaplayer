@@ -180,7 +180,7 @@ export function Player() {
     }, []);
 
     function updateAudioCurrentTime(e: ChangeEvent<HTMLInputElement>) {
-        Math.abs(parseInt(e.target.value) - timestamp) >= 1 &&  (audio.current.currentTime = parseInt(e.target.value) / 100 * audio.current.duration);
+        Math.abs(parseInt(e.target.value) - timestamp) >= 1 && audio.current.currentTime > 0 && (audio.current.currentTime = parseInt(e.target.value) / 100 * audio.current.duration);
     }
 
     return(
