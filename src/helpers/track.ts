@@ -39,9 +39,8 @@ export async function mapImportedTracks(tracks: importFiles) {
         dummyObj.tags = tags;
         cover && (dummyObj.cover = cover);
 
-        dummy.push(dummyObj);
+        dummy.push({...dummyObj, id: window.crypto.randomUUID()});
 
     }
-
     return dummy;
 }

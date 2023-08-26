@@ -10,7 +10,8 @@ interface importFilesInterface {
 }
 
 interface storeFileInterface {
-    file: File,
+    id: string
+    file: File
     tags: unknown
     cover: string
 }
