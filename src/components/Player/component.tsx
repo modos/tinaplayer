@@ -2,6 +2,7 @@ import {Card, CardBody, CardFooter, IconButton, Slider} from "@material-tailwind
 import {ChangeEvent, ReactElement, useEffect, useRef, useState} from "react";
 import {usePlayer} from "@/store/player.ts";
 import {storeFile} from "@/types/types.ts";
+import {useTracks} from "@/store/tracks.ts";
 
 export function Player() {
 
@@ -16,6 +17,13 @@ export function Player() {
     const [volume, setVolume] = useState(0.5);
 
     const currentPlayingTrack = usePlayer(state => state.currentTrack);
+    const tracks = useTracks(state => state.tracks);
+    const setCurrentPlayingTrack = usePlayer(state => state.setCurrentTrack);
+    const setPrevPlayingTrack = usePlayer(state => state.setPrevTrack);
+    const setNextPlayingTrack = usePlayer(state => state.setNextTrack);
+    const nextTrack = usePlayer(state => state.nextTrack);
+    const prevTrack = usePlayer(state => state.prevTrack);
+
     const audio = useRef(new Audio());
     usePlayer.subscribe( (state) => {updateTrack(state.currentTrack);});
 
@@ -31,11 +39,13 @@ export function Player() {
 
     function updateTrack(newTrack: storeFile) {
         audio.current.src = URL.createObjectURL(newTrack.file);
+        // audio.current.load();
         audio.current.volume = volume;
+        // playAudio();
     }
 
      function playAudio() {
-            audio.current.play().then();
+        audio.current.play().then();
     }
 
     function pauseAudio() {
@@ -183,6 +193,28 @@ export function Player() {
         Math.abs(parseInt(e.target.value) - timestamp) >= 1 && audio.current.currentTime > 0 && (audio.current.currentTime = parseInt(e.target.value) / 100 * audio.current.duration);
     }
 
+    function playNextTrack() {
+        setPrevPlayingTrack(currentPlayingTrack);
+        setCurrentPlayingTrack(nextTrack);
+
+        tracks.map((track, index) => {
+            if (track.id === currentPlayingTrack.id) {
+                tracks[index + 2] && setNextPlayingTrack(tracks[index + 2]);
+            }
+        });
+    }
+
+    function playPrevTrack() {
+        setNextPlayingTrack(currentPlayingTrack);
+        setCurrentPlayingTrack(prevTrack);
+
+        tracks.map((track, index) => {
+            if (track.id === currentPlayingTrack.id) {
+                tracks[index - 2] && setPrevPlayingTrack(tracks[index - 2]);
+            }
+        });
+    }
+
     return(
         <>
             <Card className="w-4/5 mx-auto absolute bottom-[2%] right-0 left-0">
@@ -207,12 +239,12 @@ export function Player() {
                         <div>
                             {iconStates.isLiked ? likedIcon() : unlikedIcon()}
                             {iconStates.isShuffled ? shuffleIcon() : unShuffleIcon()}
-                            <IconButton variant="text" className="ml-5">
+                            <IconButton variant="text" className="ml-5" onClick={playPrevTrack}>
                                 <i className="fas fa-backward-step" />
                             </IconButton>
                             {iconStates.isPlaying ? playIcon() : pauseIcon()}
-                            <IconButton variant="text">
-                                <i className="fas fa-forward-step" />
+                            <IconButton variant="text" onClick={playNextTrack}>
+                                <i className="fas fa-forward-step"/>
                             </IconButton>
                         </div>
                         <div className="flex items-center gap-2">
