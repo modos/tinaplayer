@@ -45,7 +45,7 @@ export function Player() {
     }
 
      function playAudio() {
-        audio.current.play().then();
+          audio.current.play().then().catch(() => {});
     }
 
     function pauseAudio() {
@@ -65,7 +65,7 @@ export function Player() {
 
     const playIcon = () => {
         return (
-            <IconButton onClick={() => playIconClicked()} variant="text" size="lg" color="deep-purple">
+            <IconButton onClick={playIconClicked} variant="text" size="lg" color="deep-purple">
                 <i className="fas fa-play text-lg" />
             </IconButton>
         );
@@ -73,7 +73,7 @@ export function Player() {
 
     const pauseIcon = () => {
         return (
-            <IconButton onClick={() => pauseIconClicked()} variant="text" size="lg" color="deep-purple">
+            <IconButton onClick={pauseIconClicked} variant="text" size="lg" color="deep-purple">
                 <i className="fas fa-pause text-lg" />
             </IconButton>
         );
