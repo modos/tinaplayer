@@ -7,7 +7,7 @@ import {useTracks} from "@/store/tracks.ts";
 export function Player() {
 
     const [iconStates, setIconStates] = useState({
-        isPlaying: true,
+        isPlaying: false,
         isMuted: false,
         isLiked: false,
         isShuffled: false
@@ -43,6 +43,7 @@ export function Player() {
 
     function updateTrack(newTrack: storeFile) {
         audio.current.src = URL.createObjectURL(newTrack.file);
+        setIconStates({...iconStates, isPlaying: true});
         audio.current.volume = volume;
     }
 
@@ -56,12 +57,14 @@ export function Player() {
 
     function playIconClicked() {
         playAudio();
-        toggleIcon("isPlaying");
+        setIconStates({...iconStates, isPlaying: true});
+
     }
 
     function pauseIconClicked() {
         pauseAudio();
-        toggleIcon("isPlaying");
+        setIconStates({...iconStates, isPlaying: false});
+
     }
 
 
@@ -244,7 +247,7 @@ export function Player() {
                             <IconButton variant="text" className="ml-5" onClick={playPrevTrack}>
                                 <i className="fas fa-backward-step" />
                             </IconButton>
-                            {iconStates.isPlaying ? playIcon() : pauseIcon()}
+                            {iconStates.isPlaying ? pauseIcon() : playIcon()}
                             <IconButton variant="text" onClick={playNextTrack}>
                                 <i className="fas fa-forward-step"/>
                             </IconButton>
