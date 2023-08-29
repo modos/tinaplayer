@@ -28,6 +28,10 @@ export function Player() {
     usePlayer.subscribe( (state) => {updateTrack(state.currentTrack);});
 
     useEffect(() => {
+        playAudio();
+    }, [audio.current.src]);
+
+    useEffect(() => {
         audio.current.volume = volume;
     }, [volume]);
 
@@ -39,9 +43,7 @@ export function Player() {
 
     function updateTrack(newTrack: storeFile) {
         audio.current.src = URL.createObjectURL(newTrack.file);
-        // audio.current.load();
         audio.current.volume = volume;
-        // playAudio();
     }
 
      function playAudio() {
