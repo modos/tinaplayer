@@ -9,9 +9,9 @@ type tracksStore = {
 
 export const useTracks = create<tracksStore>()((set) => ({
     tracks: [],
-    add: (values) => {
+    add: async (values) => {
         set({tracks: [...values]});
-        clearTracks();
+        await clearTracks();
         values.map(value => insertTrack(value));
     },
 }));

@@ -34,17 +34,9 @@ export function insertTrack(track: storeFile) {
     };
 }
 
-export function clearTracks() {
-    const db = window.indexedDB.open('tinaplayer', 1);
-
-    db.onsuccess = function() {
-        const transaction = db.result.transaction('tracks', 'readwrite');
-        const objectStore = transaction.objectStore('tracks');
-
-        objectStore.clear();
-
-        transaction.oncomplete = function() {
-            db.result.close();
-        };
-    };
+export async function clearTracks() {
+    const db = await openDB('tinaplayer', 1);
+    const transaction = await db.transaction('tracks', 'readwrite');
+    const objectStore = await transaction.objectStore('tracks');
+    objectStore.clear();
 }
