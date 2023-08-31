@@ -1,10 +1,11 @@
 import {Card, List, ListItem, ListItemPrefix} from "@material-tailwind/react";
-import {useTracks} from "@/store/tracks.ts";
 import {usePlayer} from "@/store/player.ts";
 import {storeFile} from "@/types/types.ts";
+import {getAllTracks} from "@/helpers/indexedDB.ts";
+import {useState} from "react";
 
 export function TracksList() {
-    const tracks = useTracks(state => state.tracks);
+    const [tracks, setTracks] = useState([] as Array<storeFile>);
     const setCurrentPlayingTrack = usePlayer(state => state.setCurrentTrack);
     const setPrevPlayingTrack = usePlayer(state => state.setPrevTrack);
     const setNextPlayingTrack = usePlayer(state => state.setNextTrack);
@@ -15,6 +16,9 @@ export function TracksList() {
         tracks[i + 1] && setNextPlayingTrack(tracks[i + 1]);
 
     }
+
+    getAllTracks().then(data => setTracks(data));
+
     return (
         <Card className="w-full h-full p-5">
             <List className="overflow-y-scroll">

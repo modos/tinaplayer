@@ -1,4 +1,14 @@
 import {storeFile} from "@/types/types.ts";
+import {openDB} from "idb";
+
+
+export async function getAllTracks() {
+    const db = await openDB('tinaplayer', 1);
+    const transaction = await db.transaction('tracks', 'readonly');
+    const objectStore = await transaction.objectStore('tracks');
+
+    return objectStore.getAll();
+}
 
 export function insertTrack(track: storeFile) {
     const db = window.indexedDB.open('tinaplayer', 1);
