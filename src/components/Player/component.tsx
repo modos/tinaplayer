@@ -222,12 +222,12 @@ export function Player() {
 
     return(
         <>
-            <Card className="w-4/5 mx-auto absolute bottom-[2%] right-0 left-0">
+            <Card className="bg-neutral w-4/5 mx-auto absolute bottom-[2%] right-0 left-0">
                 <CardBody className="pb-3">
                     <div className="flex items-center gap-3 text-sm">
-                        <span>{audioTimestamp()}</span>
+                        <span className="text-accent">{audioTimestamp()}</span>
                             <Slider size="sm" value={timestamp}  onChange={updateAudioCurrentTime}/>
-                        <span>{audioDuration()}</span>
+                        <span className="text-accent">{audioDuration()}</span>
                     </div>
                 </CardBody>
                 <CardFooter className="pt-0 pb-2">
