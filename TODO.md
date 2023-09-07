@@ -1,6 +1,5 @@
 - CLI commands to create components and tests
 - Responsive 
-- Dark Mode
 - Show Nested Folders 
 - Categorize Songs by artists, genres and years
 - git hook before commit
@@ -9,3 +8,5 @@
 - single track page
 - track name in player
 - show current playing track animation in list
+- unit test
+- e2e test
