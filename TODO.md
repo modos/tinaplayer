@@ -6,3 +6,6 @@
 - git hook before commit
 - Queue Tracks
 - Host SPA
+- single track page
+- track name in player
+- show current playing track animation in list
