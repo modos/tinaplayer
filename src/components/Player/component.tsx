@@ -110,7 +110,7 @@ export function Player() {
 
     const likedIcon = () => {
             return (
-                <IconButton onClick={() => toggleIcon("isLiked")} variant="text" color="red">
+                <IconButton className="hidden sm:block" onClick={() => toggleIcon("isLiked")} variant="text" color="red">
                     <i className="fas fa-heart" />
                 </IconButton>
             );
@@ -118,7 +118,7 @@ export function Player() {
 
     const unlikedIcon = () => {
         return (
-            <IconButton onClick={() => toggleIcon("isLiked")} variant="text" color="red">
+            <IconButton className="hidden sm:block" onClick={() => toggleIcon("isLiked")} variant="text" color="red">
                 <i className="fa-regular fa-heart" />
             </IconButton>
         );
@@ -126,7 +126,7 @@ export function Player() {
 
     const shuffleIcon = () => {
         return (
-            <IconButton onClick={() => toggleIcon("isShuffled")} variant="text">
+            <IconButton className="hidden sm:block" onClick={() => toggleIcon("isShuffled")} variant="text">
                 <i className="fas fa-shuffle" />
             </IconButton>
         );
@@ -134,7 +134,7 @@ export function Player() {
 
     const unShuffleIcon = () => {
         return (
-            <IconButton onClick={() => toggleIcon("isShuffled")} variant="text">
+            <IconButton className="hidden sm:block" onClick={() => toggleIcon("isShuffled")} variant="text">
                 <i className="fas fa-maximize" />
             </IconButton>
         );
@@ -222,7 +222,7 @@ export function Player() {
 
     return(
         <>
-            <Card className="bg-neutral w-4/5 mx-auto absolute bottom-[2%] right-0 left-0">
+            <Card className="bg-neutral sm:w-4/5 mx-auto absolute bottom-0 sm:bottom-[2%] right-0 left-0">
                 <CardBody className="pb-3">
                     <div className="flex items-center gap-3 text-sm">
                         <span className="text-accent">{audioTimestamp()}</span>
@@ -232,16 +232,16 @@ export function Player() {
                 </CardBody>
                 <CardFooter className="pt-0 pb-2">
                     <div className="flex justify-between items-center">
-                        <div>
+                        <div className="flex items-center">
                             <img
-                                className="w-[48px] h-[48px] rounded-lg object-cover object-center shadow-md shadow-blue-gray-900/50"
+                                className="w-[32px] h-[32px] sm:w-[48px] sm:h-[48px] rounded-lg object-cover object-center shadow-md shadow-blue-gray-900/50"
                                 src={
                                 currentPlayingTrack.cover ? currentPlayingTrack.cover : "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
                             }
                                 alt="nature image"
                             />
                         </div>
-                        <div>
+                        <div className="flex items-center">
                             {iconStates.isLiked ? likedIcon() : unlikedIcon()}
                             {iconStates.isShuffled ? shuffleIcon() : unShuffleIcon()}
                             <IconButton variant="text" className="ml-5" onClick={playPrevTrack}>

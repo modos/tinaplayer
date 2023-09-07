@@ -11,6 +11,9 @@ export function Settings({theme, onChangeTheme}: Props) {
 
     return(
         <>
+            <h2 className="text-base-content">Themes</h2>
+            <div className="flex gap-4 mt-4 flex-wrap">
+                {themes.map(item => <Button className="w-[40%] sm:w-max" key={item} onClick={() => onChangeTheme(item)} variant="outlined" color="gray">
             <Button variant="text" onClick={() => navigate(-1)}>
                 <i className="fa-solid fa-arrow-left mr-4"></i>
                 Return

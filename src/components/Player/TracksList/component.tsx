@@ -20,13 +20,13 @@ export function TracksList() {
     getAllTracks().then(data => setTracks(data));
 
     return (
-        <Card className="bg-base-100 w-full h-full p-5">
+        <Card className="bg-base-100 w-full h-full sm:p-5">
             <List className="overflow-y-scroll">
                 {tracks.map((track, i) =>
                    <div key={track.file.name} onClick={() => trackSelected(track, i)}>
                        <ListItem>
                            <ListItemPrefix>
-                               <img src={track.cover} alt={track.file.name} width={'32px'} height={'32px'}/>
+                               <img src={track.cover} alt={track.file.name} width="32px" height="32px"/>
                            </ListItemPrefix>
                            <p>{track.file.name}</p>
                        </ListItem>
