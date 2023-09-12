@@ -13,7 +13,7 @@ interface storeFileInterface {
     id: string
     file: File
     tags: unknown
-    cover: string
+    cover: Blob
 }
 
 export type Track = trackInterface

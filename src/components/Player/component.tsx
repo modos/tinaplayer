@@ -236,7 +236,7 @@ export function Player() {
                             <img
                                 className="w-[32px] h-[32px] sm:w-[48px] sm:h-[48px] rounded-lg object-cover object-center shadow-md shadow-blue-gray-900/50"
                                 src={
-                                currentPlayingTrack.cover ? currentPlayingTrack.cover : "https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                                currentPlayingTrack.cover ? URL.createObjectURL(currentPlayingTrack.cover) : ""
                             }
                                 alt="nature image"
                             />

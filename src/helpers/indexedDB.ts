@@ -1,42 +1,42 @@
 import {storeFile} from "@/types/types.ts";
 import {openDB} from "idb";
 
-
 export async function getAllTracks() {
-    const db = await openDB('tinaplayer', 1);
-    const transaction = await db.transaction('tracks', 'readonly');
-    const objectStore = await transaction.objectStore('tracks');
+    const db = await openDB('tinaplayer', 1, {
+        upgrade(db) {
+            db.createObjectStore('tracks', {keyPath: 'id', autoIncrement: true});
+        }
+    });
 
-    return objectStore.getAll();
+    if (db.objectStoreNames.contains('tracks')) {
+        const transaction =  db.transaction('tracks', 'readonly');
+
+        const objectStore =  transaction.objectStore('tracks');
+
+        return objectStore.getAll();
+    }
+
+    db.close();
+
+    return [];
 }
 
-export function insertTrack(track: storeFile) {
-    const db = window.indexedDB.open('tinaplayer', 1);
+export async function insertTrack(track: storeFile) {
+     const db = await openDB('tinaplayer', 1, {
 
-    db.onupgradeneeded = function () {
-      db.result.createObjectStore('tracks', {keyPath: 'id', autoIncrement: true});
-    };
+     });
 
-    db.onsuccess = function() {
-        const transaction = db.result.transaction('tracks', 'readwrite');
-        const objectStore = transaction.objectStore('tracks');
-
-        const addDataRequest = objectStore.add(track);
+     await db.add('tracks', track);
 
 
-        addDataRequest.onerror = function(event: Event) {
-            console.error('Error adding data to the database:', event);
-        };
-
-        transaction.oncomplete = function() {
-            db.result.close();
-        };
-    };
 }
 
 export async function clearTracks() {
     const db = await openDB('tinaplayer', 1);
-    const transaction = await db.transaction('tracks', 'readwrite');
-    const objectStore = await transaction.objectStore('tracks');
-    objectStore.clear();
+    if (db.objectStoreNames.contains('tracks')) {
+        const transaction =  db.transaction('tracks', 'readwrite');
+        const objectStore =  transaction.objectStore('tracks');
+        objectStore.clear();
+        db.close();
+    }
 }
