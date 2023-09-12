@@ -1,5 +1,7 @@
 const CACHE_NAME = 'tinaplayer-cache-v1';
 const urlsToCache =[
+    '/',
+    '/settings'
 ];
 
 self.addEventListener('install', function(event) {

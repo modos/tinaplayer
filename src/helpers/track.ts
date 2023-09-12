@@ -19,7 +19,7 @@ export async function getCover(metadata: mm.IAudioMetadata) {
 
     if (cover) {
         const blob: Blob = new Blob([cover.data], { type: 'image/jpeg' });
-        return URL.createObjectURL(blob);
+        return blob;
     }
 
     return null;
