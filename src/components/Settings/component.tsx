@@ -11,15 +11,14 @@ export function Settings({theme, onChangeTheme}: Props) {
 
     return(
         <>
-            <h2 className="text-base-content">Themes</h2>
-            <div className="flex gap-4 mt-4 flex-wrap">
-            <Button variant="text" onClick={() => navigate(-1)}>
+            <div className="flex flex-col mt-4">
+            <Button className="w-max" variant="text" onClick={() => navigate(-1)}>
                 <i className="fa-solid fa-arrow-left mr-4"></i>
                 Return
             </Button>
             <h2 className="text-base-content mt-4">Themes</h2>
-            <div className="flex gap-4 mt-4">
-                {themes.map(item => <Button key={item} onClick={() => onChangeTheme(item)} variant="outlined" color="gray">
+            <div className="flex flex-wrap pl-3 gap-3 sm:gap-4 mt-4">
+                {themes.map(item => <Button className="w-[45%] sm:w-max" key={item} onClick={() => onChangeTheme(item)} variant="outlined" color="gray">
                     {theme === item && <i className="fa-solid fa-circle-check mr-4"></i>}
                     {item}
                 </Button>)}
