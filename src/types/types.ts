@@ -16,6 +16,12 @@ interface storeFileInterface {
     cover: Blob
 }
 
+interface legacyFileWrapper {
+    type: 'file'
+    file: File
+}
+
+export type FileLegacy = legacyFileWrapper
 export type Track = trackInterface
 export type storeFile = storeFileInterface
-export type importFiles =  Array<importFilesInterface>
+export type importFiles =  Array<importFilesInterface> | Array<legacyFileWrapper>

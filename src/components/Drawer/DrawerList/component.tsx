@@ -10,7 +10,7 @@ export function DrawerList() {
     async function insertTracks() {
             const tracks = await getTracks();
 
-            if (tracks && tracks.length) {
+            if (tracks.length) {
                 storeTracks(await mapImportedTracks(tracks));
             }
     }
