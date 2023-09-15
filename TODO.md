@@ -4,9 +4,11 @@
 - Categorize Songs by artists, genres and years
 - git hook before commit
 - Queue Tracks
-- Host SPA
 - single track page
 - track name in player
 - show current playing track animation in list
 - unit test
 - e2e test
+- fix showDirectoryPicker undefined in mobile browsers
+- styling mobile-app like
+- fix next and prev playing tracks in mobile
