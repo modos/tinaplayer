@@ -27,15 +27,14 @@ export async function getCover(metadata: mm.IAudioMetadata) {
 
 export async function mapImportedTracks(tracks: importFiles) {
     const dummy = [];
-
     for (let i = 0; i < tracks?.length; i++) {
         const dummyObj: storeFile = {} as storeFile;
 
-        const tempFile = await tracks[i].file.getFile();
-        const tags = await getMetadata(tempFile);
+        const tempFile = ('getFile' in tracks[i].file) ? await (tracks[i].file as FileSystemFileHandle).getFile() : await tracks[i].file;
+        const tags = await getMetadata(tempFile as Track);
         const cover = await getCover(tags);
 
-        dummyObj.file = tempFile;
+        dummyObj.file = tempFile as File;
         dummyObj.tags = tags;
         cover && (dummyObj.cover = cover);
 
