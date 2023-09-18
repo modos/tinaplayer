@@ -9,6 +9,7 @@
 - show current playing track animation in list
 - unit test
 - e2e test
-- fix showDirectoryPicker undefined in mobile browsers
 - styling mobile-app like
 - fix next and prev playing tracks in mobile
+- twa in cafe bazaar
+- extension name issue in mobile (name of file)
