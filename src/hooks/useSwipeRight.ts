@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-export function useSwipeLeft(
+export function useSwipeRight (
     elementRef: React.RefObject<HTMLDivElement>,
-    onSwipeLeft: () => void,
+    onSwipeRight: () => void,
 ): void {
     const startXRef = useRef<number | null>(null);
 
@@ -15,11 +15,11 @@ export function useSwipeLeft(
             if (startXRef.current === null) return;
 
             const currentX = event.touches[0].clientX;
-            const deltaX = startXRef.current - currentX;
+            const deltaX = currentX - startXRef.current;
 
-            // Check if the swipe is towards the left and exceeds a threshold
+            // Check if the swipe is towards the right and exceeds a threshold
             if (deltaX > 0 && deltaX > 100) {
-                onSwipeLeft();
+                onSwipeRight();
             }
         };
 
@@ -42,5 +42,5 @@ export function useSwipeLeft(
                 element.removeEventListener('touchend', handleTouchEnd);
             }
         };
-    }, [elementRef, onSwipeLeft]);
+    }, [elementRef, onSwipeRight]);
 }

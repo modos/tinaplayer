@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
-const useScreenSize = (): boolean => {
+export function useScreenSize(): boolean {
     const [isDesktop, setIsDesktop] = useState(false);
 
     useEffect(() => {
         const handleResize = (): void => {
-            setIsDesktop(window.innerWidth >= 1024); // Adjust the threshold as per your needs
+            setIsDesktop(window.innerWidth >= 960); // Adjust the threshold as per your needs
         };
 
         // Add event listener for window resize
@@ -21,6 +21,4 @@ const useScreenSize = (): boolean => {
     }, []);
 
     return isDesktop;
-};
-
-export default useScreenSize;
+}
