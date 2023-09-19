@@ -31,7 +31,7 @@ export function TracksList() {
                    <div key={track.file.name} onClick={() => trackSelected(track, i)}>
                        <ListItem>
                            <ListItemPrefix>
-                               <img src={URL.createObjectURL(track.cover)} alt={track.file.name} width="32px" height="32px"/>
+                               <img src={track.cover ? URL.createObjectURL(track.cover) : "/mp3.png"} alt={track.file.name} width="32px" height="32px"/>
                            </ListItemPrefix>
                            <p>{track.file.name}</p>
                        </ListItem>

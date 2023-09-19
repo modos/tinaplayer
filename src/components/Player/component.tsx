@@ -233,13 +233,14 @@ export function Player() {
                 <CardFooter className="pt-0 pb-2">
                     <div className="flex justify-between items-center">
                         <div className="flex items-center">
-                            {currentPlayingTrack.cover && <img
+                            <img
                                 className="w-[32px] h-[32px] sm:w-[48px] sm:h-[48px] rounded-lg object-cover object-center shadow-md shadow-blue-gray-900/50"
                                 src={
-                                     URL.createObjectURL(currentPlayingTrack.cover)
+                                currentPlayingTrack.cover ? URL.createObjectURL(currentPlayingTrack.cover)
+                                    : "/mp3.png"
                                 }
                                 alt="nature image"
-                            />}
+                            />
                         </div>
                         <div className="flex items-center">
                             {iconStates.isLiked ? likedIcon() : unlikedIcon()}
