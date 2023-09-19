@@ -12,3 +12,4 @@
 - fix showDirectoryPicker undefined in mobile browsers
 - styling mobile-app like
 - fix next and prev playing tracks in mobile
+- reRendering image cover
