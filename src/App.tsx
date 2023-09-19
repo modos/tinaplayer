@@ -4,14 +4,13 @@ import {TracksList} from "@/components/Player/TracksList";
 import {Route, Routes} from "react-router-dom";
 import {Settings} from "@/components/Settings";
 import {useRef, useState} from "react";
-import {useScreenSize, useSwipeLeft, useSwipeRight} from "@/hooks";
+import {useScreenSize, useSwipeLeft, useSwipeRight, useTheme} from "@/hooks";
 function App() {
-    const selectedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.classList.value = selectedTheme;
-    const [theme, setTheme] = useState(selectedTheme);
+
     const swappableDivRef =  useRef<HTMLDivElement>(null);
     const [showDrawer, setShowDrawer] = useState(false);
     const isDesktop: boolean = useScreenSize();
+    const [theme, setTheme] = useTheme();
 
     const handleSwipeLeft = (): void => {
         setShowDrawer(true);
@@ -27,11 +26,6 @@ function App() {
     useSwipeLeft(swappableDivRef, handleSwipeLeft);
     useSwipeRight(swappableDivRef, handleSwipeRight);
 
-    function changeTheme(name: string) {
-        document.documentElement.classList.value = name;
-        localStorage.setItem('theme', name);
-        setTheme(name);
-    }
 
   return (
     <>
@@ -40,7 +34,7 @@ function App() {
              <div className="w-full sm:px-5 sm:py-2 overflow-hidden basis-4/5" ref={swappableDivRef}>
                     <Routes>
                         <Route path="/" element={<TracksList/>}/>
-                        <Route path="/settings" element={<Settings theme={theme} onChangeTheme={(newTheme: string) => changeTheme(newTheme)}/>}/>
+                        <Route path="/settings" element={<Settings theme={theme} onChangeTheme={(newTheme: string) => setTheme(newTheme)}/>}/>
                     </Routes>
              </div>
              <div className="basis-1/5 z-[2]">
