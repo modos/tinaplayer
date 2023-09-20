@@ -15,3 +15,4 @@
 - twa in cafe bazaar
 - extension name issue in mobile (name of file)
 - reRendering image cover
+- delete data button in settings
