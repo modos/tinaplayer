@@ -1,9 +1,11 @@
-import {Card, List, ListItem, ListItemPrefix} from "@material-tailwind/react";
+import {Button, Card, List, ListItem, ListItemPrefix} from "@material-tailwind/react";
 import {usePlayer} from "@/store/player.ts";
 import {storeFile} from "@/types/types.ts";
 import {getAllTracks} from "@/helpers/indexedDB.ts";
 import {useLayoutEffect, useState} from "react";
 import {useTracks} from "@/store/tracks.ts";
+import {getTracks} from "@/helpers/fileSystem.ts";
+import {mapImportedTracks} from "@/helpers/track.ts";
 
 export function TracksList() {
     const [tracks, setTracks] = useState([] as Array<storeFile>);
@@ -20,11 +22,25 @@ export function TracksList() {
 
     }
 
+    const storeTracks = useTracks(state => state.add);
+    async function insertTracks() {
+        const tracks = await getTracks();
+
+        if (tracks.length) {
+            storeTracks(await mapImportedTracks(tracks));
+        }
+    }
+
     useLayoutEffect(() => {
         getAllTracks().then(data => setTracks(data));
     }, []);
 
     return (
+        tracks.length <= 0  ?
+            <div className="h-full flex justify-center items-center">
+                <Button color="amber" onClick={insertTracks}>   <i className="fas fa-music mr-3"/>Import Tracks</Button>
+            </div>
+            :
         <Card className="bg-base-100 w-full h-full sm:p-5">
             <List className="overflow-y-scroll">
                 {tracks.map((track, i) =>
