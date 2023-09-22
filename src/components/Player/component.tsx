@@ -10,6 +10,7 @@ import { usePlayer } from '@/store/player.ts';
 import { storeFile } from '@/types/types.ts';
 import { useTracks } from '@/store/tracks.ts';
 import { TrackCover } from '@/components/Player/TracksList/TrackCover';
+import { useScreenSize } from '@/hooks';
 
 export function Player() {
     const [iconStates, setIconStates] = useState({
@@ -21,6 +22,8 @@ export function Player() {
 
     const [timestamp, setTimestamp] = useState(50);
     const [volume, setVolume] = useState(0.5);
+
+    const isDesktop = useScreenSize();
 
     const currentPlayingTrack = usePlayer((state) => state.currentTrack);
     const tracks = useTracks((state) => state.tracks);
@@ -268,6 +271,15 @@ export function Player() {
         <>
             <Card className="bg-neutral sm:w-4/5 mx-auto absolute bottom-0 sm:bottom-[2%] right-0 left-0">
                 <CardBody className="pb-3">
+                    {!isDesktop && (
+                        <div className="w-full text-center truncate">
+                            <span className="text-xs">
+                                {currentPlayingTrack.file
+                                    ? currentPlayingTrack.file.name
+                                    : ''}
+                            </span>
+                        </div>
+                    )}
                     <div className="flex items-center gap-3 text-sm">
                         <span className="text-accent">{audioTimestamp()}</span>
                         <Slider
@@ -280,8 +292,15 @@ export function Player() {
                 </CardBody>
                 <CardFooter className="pt-0 pb-2">
                     <div className="flex justify-between items-center">
-                        <div className="flex items-center">
+                        <div className="flex items-center gap-2">
                             <TrackCover cover={currentPlayingTrack.cover} />
+                            {isDesktop && (
+                                <span className="text-xs truncate max-w-[128px]">
+                                    {currentPlayingTrack.file
+                                        ? currentPlayingTrack.file.name
+                                        : ''}
+                                </span>
+                            )}
                         </div>
                         <div className="flex items-center">
                             {iconStates.isLiked ? likedIcon() : unlikedIcon()}
