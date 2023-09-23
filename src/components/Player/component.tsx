@@ -38,6 +38,10 @@ export function Player() {
         updateTrack(state.currentTrack);
     });
 
+    audio.current.onended = () => {
+        playNextTrack();
+    };
+
     useEffect(() => {
         playAudio();
     }, [audio.current.src]);
