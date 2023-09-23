@@ -273,7 +273,7 @@ export function Player() {
                 <CardBody className="pb-3">
                     {!isDesktop && (
                         <div className="w-full text-center truncate">
-                            <span className="text-xs">
+                            <span className="text-xs font-bold">
                                 {currentPlayingTrack.file
                                     ? currentPlayingTrack.file.name
                                     : ''}
@@ -295,7 +295,7 @@ export function Player() {
                         <div className="flex items-center gap-2">
                             <TrackCover cover={currentPlayingTrack.cover} />
                             {isDesktop && (
-                                <span className="text-xs truncate max-w-[128px]">
+                                <span className="text-xs font-bold truncate max-w-[128px]">
                                     {currentPlayingTrack.file
                                         ? currentPlayingTrack.file.name
                                         : ''}
