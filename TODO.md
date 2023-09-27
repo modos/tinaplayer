@@ -15,3 +15,4 @@
 - extension name issue in mobile (name of file)
 - reRendering image cover
 - delete data button in settings
+- liked current track doesnt trigger like button until page refreshed
