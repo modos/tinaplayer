@@ -17,6 +17,7 @@ export function TracksList() {
     const setCurrentPlayingTrack = usePlayer((state) => state.setCurrentTrack);
     const setPrevPlayingTrack = usePlayer((state) => state.setPrevTrack);
     const setNextPlayingTrack = usePlayer((state) => state.setNextTrack);
+    const sync = useTracks((state) => state.sync);
 
     useTracks.subscribe((state) => setTracks(state.tracks));
 
@@ -29,16 +30,19 @@ export function TracksList() {
     const storeTracks = useTracks((state) => state.add);
 
     async function insertTracks() {
-        const tracks = await getTracks();
+        const tracksTemp = await getTracks();
 
-        if (tracks.length) {
-            storeTracks(await mapImportedTracks(tracks));
+        if (tracksTemp.length) {
+            storeTracks(await mapImportedTracks(tracksTemp));
         }
     }
 
     useLayoutEffect(() => {
-        getAllTracks().then((data) => setTracks(data));
-    }, []);
+        getAllTracks().then((data) => {
+            setTracks(() => data);
+            sync(data);
+        });
+    }, [sync]);
 
     return tracks.length <= 0 ? (
         <div className="h-full flex justify-center items-center">
