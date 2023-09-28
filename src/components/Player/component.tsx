@@ -5,21 +5,23 @@ import {
     IconButton,
     Slider,
 } from '@material-tailwind/react';
-import { ChangeEvent, ReactElement, useEffect, useRef, useState } from 'react';
+import {
+    ChangeEvent,
+    ReactElement,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import { usePlayer } from '@/store/player.ts';
 import { storeFile } from '@/types/types.ts';
 import { useTracks } from '@/store/tracks.ts';
 import { TrackCover } from '@/components/Player/TracksList/TrackCover';
 import { useScreenSize } from '@/hooks';
+import { LikeButton } from '@/components/Player/TracksList/LikeButton';
+import { toggleLikeTrack } from '@/helpers/indexedDB.ts';
 
 export function Player() {
-    const [iconStates, setIconStates] = useState({
-        isPlaying: false,
-        isMuted: false,
-        isLiked: false,
-        isShuffled: false,
-    });
-
     const [timestamp, setTimestamp] = useState(50);
     const [volume, setVolume] = useState(0.5);
 
@@ -32,6 +34,12 @@ export function Player() {
     const setNextPlayingTrack = usePlayer((state) => state.setNextTrack);
     const nextTrack = usePlayer((state) => state.nextTrack);
     const prevTrack = usePlayer((state) => state.prevTrack);
+
+    const [iconStates, setIconStates] = useState({
+        isPlaying: false,
+        isMuted: false,
+        isShuffled: false,
+    });
 
     const audio = useRef(new Audio());
     usePlayer.subscribe((state) => {
@@ -129,32 +137,6 @@ export function Player() {
         return (
             <IconButton onClick={() => toggleIcon('isMuted')} variant="text">
                 <i className="fas fa-volume-xmark" />
-            </IconButton>
-        );
-    };
-
-    const likedIcon = () => {
-        return (
-            <IconButton
-                className="hidden sm:block"
-                onClick={() => toggleIcon('isLiked')}
-                variant="text"
-                color="red"
-            >
-                <i className="fas fa-heart" />
-            </IconButton>
-        );
-    };
-
-    const unlikedIcon = () => {
-        return (
-            <IconButton
-                className="hidden sm:block"
-                onClick={() => toggleIcon('isLiked')}
-                variant="text"
-                color="red"
-            >
-                <i className="fa-regular fa-heart" />
             </IconButton>
         );
     };
@@ -271,6 +253,14 @@ export function Player() {
         });
     }
 
+    const currentTrackLikeChanged = useCallback(
+        async (value: boolean) => {
+            await toggleLikeTrack(currentPlayingTrack, value);
+            currentPlayingTrack.liked = value;
+        },
+        [currentPlayingTrack]
+    );
+
     return (
         <>
             <Card className="bg-neutral sm:w-4/5 mx-auto absolute bottom-0 sm:bottom-[2%] right-0 left-0">
@@ -307,7 +297,12 @@ export function Player() {
                             )}
                         </div>
                         <div className="flex items-center">
-                            {iconStates.isLiked ? likedIcon() : unlikedIcon()}
+                            {
+                                <LikeButton
+                                    isLiked={currentPlayingTrack.liked}
+                                    onValueChanged={currentTrackLikeChanged}
+                                />
+                            }
                             {iconStates.isShuffled
                                 ? shuffleIcon()
                                 : unShuffleIcon()}

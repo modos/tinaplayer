@@ -39,3 +39,16 @@ export async function clearTracks() {
         db.close();
     }
 }
+
+export async function toggleLikeTrack(
+    track: storeFile,
+    likeOrUnLike: boolean = false
+) {
+    const db = await openDB('tinaplayer', 1);
+    if (db.objectStoreNames.contains('tracks')) {
+        const transaction = db.transaction('tracks', 'readwrite');
+        const objectStore = transaction.objectStore('tracks');
+        await objectStore.put({ ...track, liked: likeOrUnLike });
+        db.close();
+    }
+}
