@@ -1,27 +1,53 @@
-# React + TypeScript + Vite
+# Tinaplayer | a lightweight pwa audio player
+a lovely audio player crafted by react and typescript.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+demo: https://player-d70.pages.dev/
+## Libraries
+- React
+- Zustand
+- Tailwindcss
+- Material tailwind
+- vite
+- buffer
+- idb
+- music-metadata
+- music-metadata-browser
+- Eslint
+- Prettier
+- Husky
 
-Currently, two official plugins are available:
+## Disclaimer
+This project is a React exercise project that I wanted to revisit after a while to practice React again. Therefore, it's possible that some logical solutions may not have been used in implementing certain aspects, as my goal was to explore React concepts as much as possible in this project.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Todo
+- CLI commands to create components and tests
+- Show Nested Folders
+- Categorize Songs by artists, genres and years
+- Queue Tracks
+- single track page
+- track name in player
+- show current playing track animation in list
+- unit test
+- e2e test
+- fix showDirectoryPicker undefined in mobile browsers
+- twa in cafe bazaar
+- extension name issue in mobile (name of file)
+- reRendering image cover
+- delete data button in settings
+- liked current track doesnt trigger like button until page refreshed
 
-## Expanding the ESLint configuration
+other todos listed in './TODO.md'
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## How To Run
+`
+yarn add
+`
+`
+yarn run dev
+`
+`
+yarn run build
+`
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## How To Contribute
+create a new issue (preferred to be related with todo tasks), after the issue approved, fork the project, do the task and then make a pull request. you can contact me by email: modos.m98@gmail.com

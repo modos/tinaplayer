@@ -1,8 +1,6 @@
 - CLI commands to create components and tests
-- Responsive 
 - Show Nested Folders 
 - Categorize Songs by artists, genres and years
-- git hook before commit
 - Queue Tracks
 - single track page
 - track name in player
@@ -10,7 +8,6 @@
 - unit test
 - e2e test
 - fix showDirectoryPicker undefined in mobile browsers
-- styling mobile-app like
 - twa in cafe bazaar
 - extension name issue in mobile (name of file)
 - reRendering image cover
