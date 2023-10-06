@@ -24,6 +24,11 @@ export async function getAllTracks() {
     return [];
 }
 
+export async function getAllFavTracks() {
+    const allTracks = await getAllTracks();
+    return allTracks.filter((track) => track.liked);
+}
+
 export async function insertTrack(track: storeFile) {
     const db = await openDB('tinaplayer', 1, {});
 
