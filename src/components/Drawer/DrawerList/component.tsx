@@ -25,7 +25,7 @@ export function DrawerList() {
                         <i className="fas fa-cog" />
                     </IconButton>
                 </Link>
-                <Link to={'settings'}>
+                <Link to={'favourites'}>
                     <IconButton color="red">
                         <i className="fas fa-heart" />
                     </IconButton>
