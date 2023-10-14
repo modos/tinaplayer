@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Settings } from '@/components/Settings';
 import { useRef, useState } from 'react';
 import { useScreenSize, useSwipeLeft, useSwipeRight, useTheme } from '@/hooks';
+import { Favourites } from '@/components/Favourites';
 function App() {
     const swappableDivRef = useRef<HTMLDivElement>(null);
     const [showDrawer, setShowDrawer] = useState(false);
@@ -32,6 +33,10 @@ function App() {
                     >
                         <Routes>
                             <Route path="/" element={<TracksList />} />
+                            <Route
+                                path="/favourites"
+                                element={<Favourites />}
+                            />
                             <Route
                                 path="/settings"
                                 element={
