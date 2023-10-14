@@ -257,8 +257,13 @@ export function Player() {
         async (value: boolean) => {
             await toggleLikeTrack(currentPlayingTrack, value);
             currentPlayingTrack.liked = value;
+
+            const foundTrackInDb = tracks.find(
+                (item) => item.id === currentPlayingTrack.id
+            );
+            foundTrackInDb && (foundTrackInDb.liked = value);
         },
-        [currentPlayingTrack]
+        [currentPlayingTrack, tracks]
     );
 
     return (
