@@ -25,15 +25,12 @@ This project is a React exercise project that I wanted to revisit after a while 
 - Categorize Songs by artists, genres and years
 - Queue Tracks
 - single track page
-- track name in player
 - show current playing track animation in list
 - unit test
 - e2e test
 - fix showDirectoryPicker undefined in mobile browsers
 - twa in cafe bazaar
 - extension name issue in mobile (name of file)
-- reRendering image cover
-- delete data button in settings
 - liked current track doesnt trigger like button until page refreshed
 
 other todos listed in './TODO.md'
