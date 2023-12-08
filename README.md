@@ -31,7 +31,6 @@ This project is a React exercise project that I wanted to revisit after a while 
 - fix showDirectoryPicker undefined in mobile browsers
 - twa in cafe bazaar
 - extension name issue in mobile (name of file)
-- liked current track doesnt trigger like button until page refreshed
 
 other todos listed in './TODO.md'
 
