@@ -9,4 +9,3 @@
 - fix showDirectoryPicker undefined in mobile browsers
 - twa in cafe bazaar
 - extension name issue in mobile (name of file)
-- liked current track doesnt trigger like button until page refreshed
