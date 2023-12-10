@@ -1,7 +1,10 @@
 # Tinaplayer | a lightweight pwa audio player
 a lovely audio player crafted by react and typescript.
 
-demo: https://player-d70.pages.dev/
+live: https://player-d70.pages.dev/
+
+![screenshot1.png](public%2Fscreenshot1.png)
+
 ## Libraries
 - React
 - Zustand
