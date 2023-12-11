@@ -3,9 +3,9 @@
 - Categorize Songs by artists, genres and years
 - Queue Tracks
 - single track page
-- show current playing track animation in list
 - unit test
 - e2e test
 - fix showDirectoryPicker undefined in mobile browsers
 - twa in cafe bazaar
 - extension name issue in mobile (name of file)
+- full name show in desktop mode for current playing track
