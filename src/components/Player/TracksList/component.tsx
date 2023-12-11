@@ -4,6 +4,7 @@ import {
     List,
     ListItem,
     ListItemPrefix,
+    ListItemSuffix,
 } from '@material-tailwind/react';
 import { usePlayer } from '@/store/player.ts';
 import { storeFile } from '@/types/types.ts';
@@ -15,6 +16,7 @@ import { mapImportedTracks } from '@/helpers/track.ts';
 export function TracksList() {
     const [tracks, setTracks] = useState([] as Array<storeFile>);
     const setCurrentPlayingTrack = usePlayer((state) => state.setCurrentTrack);
+    const currentPlayingTrack = usePlayer((state) => state.currentTrack);
     const setPrevPlayingTrack = usePlayer((state) => state.setPrevTrack);
     const setNextPlayingTrack = usePlayer((state) => state.setNextTrack);
     const sync = useTracks((state) => state.sync);
@@ -74,6 +76,15 @@ export function TracksList() {
                                 />
                             </ListItemPrefix>
                             <p>{track.file.name}</p>
+                            {currentPlayingTrack.id === track.id && (
+                                <ListItemSuffix>
+                                    <img
+                                        src="https://i.gifer.com/Z23b.gif"
+                                        width="25"
+                                        alt=""
+                                    />
+                                </ListItemSuffix>
+                            )}
                         </ListItem>
                     </div>
                 ))}
