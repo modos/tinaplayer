@@ -1,14 +1,13 @@
-# Tinaplayer | a lightweight pwa audio player
-a lovely audio player crafted by react and typescript.
+# Tinaplayer | a Lightweight PWA Audio Player
 
-live: https://player-d70.pages.dev/
+Live: https://player-d70.pages.dev/
 
 ![screenshot1.png](public%2Fscreenshot1.png)
 
 ## Libraries
 - React
 - Zustand
-- Tailwindcss
+- Tailwind Css
 - Material tailwind
 - vite
 - buffer
@@ -18,24 +17,6 @@ live: https://player-d70.pages.dev/
 - Eslint
 - Prettier
 - Husky
-
-## Disclaimer
-This project is a React exercise project that I wanted to revisit after a while to practice React again. Therefore, it's possible that some logical solutions may not have been used in implementing certain aspects, as my goal was to explore React concepts as much as possible in this project.
-
-## Todo
-- CLI commands to create components and tests
-- Show Nested Folders
-- Categorize Songs by artists, genres and years
-- Queue Tracks
-- single track page
-- unit test
-- e2e test
-- fix showDirectoryPicker undefined in mobile browsers
-- twa in cafe bazaar
-- extension name issue in mobile (name of file)
-- full name show in desktop mode for current playing track
-
-other todos listed in './TODO.md'
 
 ## How To Run
 `
@@ -48,5 +29,12 @@ yarn run dev
 yarn run build
 `
 
+
+## Feedback and Report
+Please Share Your Comments and Suggestions with us Through One of the Following Methods:
+
+[Github Issues](https://github.com/modos/tinaplayer/issues)
 ## How To Contribute
-create a new issue (preferred to be related with todo tasks), after the issue approved, fork the project, do the task and then make a pull request. you can contact me by email: modos.m98@gmail.com
+We Welcome Your Contributions to Improve TinaPlayer! To contribute Please Read the Following Document:
+
+[Contributing Guide](./CONTRIBUTING.md)
